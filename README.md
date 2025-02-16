@@ -9,5 +9,6 @@ Directory Structure
 
 Architecture Explanation
 
-![image](https://github.com/user-attachments/assets/986cf48e-0670-46f2-bfde-e934d94ea5b4)
+![image](https://github.com/user-attachments/assets/cdb7ca36-6d5e-4736-b94a-0980d8dfd75a)
+
 
