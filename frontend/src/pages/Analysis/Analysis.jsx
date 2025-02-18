@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import {
   Box,
@@ -11,32 +11,60 @@ import {
   List,
   ListItem,
   Avatar,
+  Alert,
+  CircularProgress,
 } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
+import api from '../services/api';
 
 const Analysis = () => {
   const location = useLocation();
-  const { url } = location.state || {};
+  const { url, content } = location.state || {};
   const [message, setMessage] = useState('');
-  const [chat, setChat] = useState([
-    {
-      type: 'bot',
-      content: 'Here\'s a summary of the article and its key points:',
-    },
-    {
-      type: 'bot',
-      content: 'This is a placeholder for the article summary. The actual summary will be generated using AI.',
-    },
-  ]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [chat, setChat] = useState([]);
+
+  useEffect(() => {
+    const getSummary = async () => {
+      try {
+        const data = await api.getArticleSummary(url);
+        setChat([
+          { type: 'bot', content: 'Here\'s a summary of the article:' },
+          { type: 'bot', content: data.summary },
+        ]);
+      } catch (err) {
+        setError(err.message || 'Failed to get article summary');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (url) {
+      getSummary();
+    }
+  }, [url]);
 
   const handleSend = (e) => {
     e.preventDefault();
     if (message.trim()) {
       setChat([...chat, { type: 'user', content: message }]);
-      setChat(prev => [...prev, { type: 'bot', content: 'This is a placeholder response. The actual response will come from the AI.' }]);
+      // Placeholder for future AI chat integration
+      setChat(prev => [...prev, { 
+        type: 'bot', 
+        content: 'This is a placeholder response. AI chat will be integrated soon.' 
+      }]);
       setMessage('');
     }
   };
+
+  if (loading) {
+    return (
+      <Container sx={{ mt: 4, textAlign: 'center' }}>
+        <CircularProgress />
+      </Container>
+    );
+  }
 
   return (
     <Container maxWidth="md">

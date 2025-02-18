@@ -28,3 +28,35 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - `npm build` - Builds the app for production
 - `npm test` - Runs tests
 - `npm run eject` - Ejects from Create React App
+
+# Opposing Perspective AI - Backend
+
+FastAPI backend for the Opposing Perspective AI project.
+
+## Setup
+
+1. Create virtual environment:
+```bash
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+venv\Scripts\activate     # Windows
+```
+
+2. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+3. Run development server:
+```bash
+uvicorn app.main:app --reload
+```
+
+## API Endpoints
+
+- `POST /api/v1/article-summary`: Get article summary
+- `POST /api/v1/scrape-url`: Scrape article content
+
+## Documentation
+
+- API docs available at `/docs` or `/redoc`

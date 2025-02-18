@@ -7,17 +7,31 @@ import {
   Container,
   Paper,
   Button,
+  Alert,
 } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+import api from '../services/api';
 
 const Home = () => {
   const [url, setUrl] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (url) {
-      navigate('/analysis', { state: { url } });
+    if (!url) return;
+
+    setLoading(true);
+    setError('');
+
+    try {
+      const data = await api.scrapeUrl(url);
+      navigate('/analysis', { state: { url, content: data.content } });
+    } catch (err) {
+      setError(err.message || 'Failed to analyze URL');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -51,6 +65,11 @@ const Home = () => {
           Enter any article URL to get AI-powered analysis and opposing viewpoints
         </Typography>
 
+        {error && (
+          <Alert severity="error" sx={{ mt: 2 }}>
+            {error}
+          </Alert>
+        )}
         <Paper
           component="form"
           onSubmit={handleSubmit}
@@ -70,6 +89,7 @@ const Home = () => {
             placeholder="Paste article URL here..."
             value={url}
             onChange={(e) => setUrl(e.target.value)}
+            disabled={loading}
             sx={{
               '& .MuiOutlinedInput-root': {
                 border: 'none',
@@ -80,13 +100,14 @@ const Home = () => {
           <Button
             type="submit"
             variant="contained"
+            disabled={loading}
             sx={{
               borderRadius: '20px',
               px: 3,
               textTransform: 'none',
             }}
           >
-            Analyze
+            {loading ? 'Analyzing...' : 'Analyze'}
           </Button>
         </Paper>
       </Box>
