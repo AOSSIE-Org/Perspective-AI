@@ -12,55 +12,69 @@ const Card: React.FC<DescCardProps> = ({ title, description }) => {
   return (
     <StyledWrapper>
       <div className="card">
-        <div className="card2">
-          <h2 className='card-title'>{title}</h2>
-          <p className='card-description'>{description}</p>
-        </div>
+        <h2 className="card-title">{title}</h2>
+        <p className="card-description">{description}</p>
       </div>
     </StyledWrapper>
   );
 };
 
 const StyledWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
   .card {
-    width: 220px;
-    height: 254px;
-    background-image: linear-gradient(163deg, #5F27CD 0%, #2563EB 100%);
+    width: 300px;
+    padding: 25px;
+    background: rgba(255, 118, 136, 0.2);
     border-radius: 20px;
-    transition: all .3s;
-  }
-  
-  .card-title {
-    color: #fff;
-    font-size: 24px;
-    font-weight: 400;
+    box-shadow: 0 15px 40px rgba(255, 118, 136, 0.4);
     text-align: center;
-    padding: 10px;
-  }
-  
-  .card-description {
-    color: #fff;
-    font-size: 16px;
-    text-align: center;
-    margin-top: 20px;
-    padding: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
   }
 
-  .card2 {
-    width: 190px;
-    height: 254px;
-    background-color: #1a1a1a;
-    border-radius: 20px;
-    transition: all .2s;
+  .card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 10%, transparent 80%);
+    transform: rotate(25deg);
+    opacity: 0;
+    transition: opacity 0.3s ease;
   }
 
-  .card2:hover {
-    transform: scale(0.98);
-    border-radius: 20px;
+  .card:hover::before {
+    opacity: 1;
   }
 
   .card:hover {
-    box-shadow: 0px 0px 30px 1px rgba(0, 255, 117, 0.30);
+    transform: translateY(-8px);
+    box-shadow: 0 20px 50px rgba(255, 118, 136, 0.6);
+  }
+
+  .card-title {
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+
+  .card-description {
+    color: #fff;
+    font-size: 18px;
+    opacity: 0.9;
+    line-height: 1.5;
   }
 `;
 
