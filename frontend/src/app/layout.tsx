@@ -33,15 +33,15 @@
 //   );
 // }
 
-import './globals.css';
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import "./globals.css";
+import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Perspective AI',
-  description: 'Discover Different Perspectives',
+  title: "Perspective AI",
+  description: "Discover Different Perspectives",
 };
 
 export default function RootLayout({
@@ -51,6 +51,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <title>Perspective AI</title>
+        <link
+          rel="icon"
+          href="./fav.svg"
+          type="image/<generated>"
+          sizes="<generated>"
+        />
+      </head>
       <body className={inter.className}>{children}</body>
     </html>
   );
