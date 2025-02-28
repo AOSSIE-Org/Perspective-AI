@@ -1,11 +1,13 @@
 'use client';
 
+import React from 'react';
 import { useState } from 'react';
 import { Container, Typography, TextField, Button, Card, CardContent, Box, Stack } from '@mui/material';
 import ChatMessage from '@/app/components/ChatMessage';
 import Navbar from '@/app/components/Navbar';
 import TextToSpeech from '../components/TextToSpeech';
-
+import ExportButton from '../components/Utils/ExportButton';
+  
 export default function Article() {
   const [message, setMessage] = useState('');
   const [url, setUrl] = useState('');
@@ -32,6 +34,10 @@ export default function Article() {
     }
   };
 
+  const handleExport = (format: string) => {
+    console.log(`Exporting in ${format} format`);
+  };
+
   return (
     <>
       <Navbar />
@@ -44,7 +50,6 @@ export default function Article() {
       }}>
         <Container maxWidth="lg">
           <Stack spacing={6}>
-            {/* Summary Section */}
             <Card sx={cardStyle}>
               <CardContent sx={{ p: 4 }}>
                 <Typography variant="h5" fontWeight="bold" gutterBottom color="primary.main">
@@ -67,7 +72,6 @@ export default function Article() {
               </CardContent>
             </Card>
 
-            {/* AI Perspective Section */}
             <Card sx={cardStyle}>
               <CardContent sx={{ p: 4 }}>
                 <Typography variant="h5" fontWeight="bold" gutterBottom color="primary.main">
@@ -83,28 +87,39 @@ export default function Article() {
               </CardContent>
             </Card>
 
-            {/* Discussion Section */}
             <Card sx={cardStyle}>
-              <CardContent sx={{ 
+              <CardContent sx={{
                 p: 4,
-                flexGrow: 1, 
-                display: 'flex', 
-                flexDirection: 'column' 
+                flexGrow: 1,
+                display: "flex",
+                flexDirection: "column",
+                position: "relative",
               }}>
+                <Box sx={{
+                  position: "absolute",
+                  top: 16,
+                  right: 16,
+                  zIndex: 10,
+                }}>
+                  <ExportButton />
+                </Box>
+
                 <Typography variant="h5" fontWeight="bold" gutterBottom color="primary.main">
                   Discussion
                 </Typography>
-                <Box sx={{ 
-                  flexGrow: 1, 
-                  overflowY: 'auto', 
-                  maxHeight: 400, 
+
+                <Box sx={{
+                  flexGrow: 1,
+                  overflowY: "auto",
+                  maxHeight: 400,
                   mb: 3,
-                  borderRadius: '16px',
+                  borderRadius: "16px",
                 }}>
                   {chatHistory.map((chat, index) => (
                     <ChatMessage key={index} isAI={chat.isAI} message={chat.message} />
                   ))}
                 </Box>
+
                 <Box component="form" onSubmit={handleSubmit} display="flex" gap={2}>
                   <TextField
                     fullWidth
@@ -113,16 +128,16 @@ export default function Article() {
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     sx={{
-                      '& .MuiOutlinedInput-root': {
-                        borderRadius: '12px',
-                      }
+                      "& .MuiOutlinedInput-root": {
+                        borderRadius: "12px",
+                      },
                     }}
                   />
-                  <Button 
-                    type="submit" 
-                    variant="contained" 
+                  <Button
+                    type="submit"
+                    variant="contained"
                     color="primary"
-                    sx={{ borderRadius: '12px', px: 4 }}
+                    sx={{ borderRadius: "12px", px: 4 }}
                   >
                     Send
                   </Button>

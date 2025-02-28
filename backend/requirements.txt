@@ -5,3 +5,6 @@ uvicorn
 requests
 beautifulsoup4
 
+newspaper3k
+httpx
+python-dotenv
