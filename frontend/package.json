@@ -13,6 +13,7 @@
     "@emotion/styled": "^11.14.0",
     "@mui/material": "^6.4.5",
     "@types/styled-components": "^5.1.34",
+    "axios": "^1.8.1",
     "lucide-react": "^0.475.0",
     "next": "15.1.7",
     "ogl": "^1.0.11",

@@ -123,6 +123,19 @@ npm run dev
 ```
 
 ### Backend Setup
+
+*Get HuggingFace Access Token:*
+- Go to HuggingFace website and create new access token.
+- copy that token
+
+*Setup environment variables:*
+  - add .env file in `/backend`directory.
+  - add following environment variable in your .env file.
+  ```
+  HF_TOKEN = <Your_hugging_face_access_token>
+  ```
+
+
 ```bash
 cd backend
 python -m app.main
